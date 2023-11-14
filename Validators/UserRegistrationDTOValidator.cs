@@ -27,7 +27,7 @@ public class UserRegistrationDTOValidator : AbstractValidator<UserRegistrationDT
         RuleFor(x => x.Password)
             .NotEmpty().WithMessage("Password må være med!")
             .MinimumLength(8).WithMessage("Password må være minst 8 tegn!")
-            .Matches("[0-9]]").WithMessage("Må ha minst 1 tall i passordet")
+            .Matches("[0-9]").WithMessage("Må ha minst 1 tall i passordet")
             .Matches("[A-Z]").WithMessage("Må ha minst 1 stor bokstav i passordet")
             .Matches("[a-z]").WithMessage("Må ha minst 1 liten bokstav i passordet");
     }
