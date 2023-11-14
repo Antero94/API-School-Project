@@ -23,12 +23,12 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{Id}", Name = "GetUsersId")]
-    public async Task<ActionResult<string>> GetUsersById(int Id)
+    public async Task<ActionResult<UserDTO>> GetUsersByIdAsync(int Id)
     {
         var user = await _userService.GetByIdAsync(Id);
         if (user == null)
         {
-            return NotFound();
+            return NotFound("Fant ikke bruker");
         }
         return Ok(user);
     }
