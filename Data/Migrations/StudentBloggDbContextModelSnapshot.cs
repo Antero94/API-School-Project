@@ -30,7 +30,7 @@ namespace StudentBloggAPI.Data.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("varchar(300)");
 
-                    b.Property<DateTime>("DateCommented")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("PostId")

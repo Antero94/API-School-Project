@@ -38,7 +38,7 @@ public class CommentRepoInMemory : ICommentRepo
         return null;
     }
 
-    public async Task<ICollection<Comment>> GetCommentsAsync()
+    public async Task<ICollection<Comment>> GetCommentsAsync(int pageNr, int pageSize)
     {
         await Task.Delay(10);
         return _comments;

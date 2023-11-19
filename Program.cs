@@ -10,7 +10,6 @@ using StudentBloggAPI.Middleware;
 using StudentBloggAPI.Models.DTOs;
 using StudentBloggAPI.Models.Entities;
 using StudentBloggAPI.Repository;
-using StudentBloggAPI.Repository.InMemoryDb;
 using StudentBloggAPI.Repository.Interfaces;
 using StudentBloggAPI.Services;
 using StudentBloggAPI.Services.Interfaces;
@@ -24,14 +23,18 @@ builder.Services.AddSwaggerGen();
 builder.RegisterMappers();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IMapper<User, UserDTO>, UserMapper>();
 builder.Services.AddScoped<IMapper<User, UserRegistrationDTO>, UserRegMapper>();
 builder.Services.AddScoped<IMapper<Post, PostDTO>, PostMapper>();
+builder.Services.AddScoped<IMapper<Comment, CommentDTO>, CommentMapper>();
 builder.Services.AddScoped<StudentBloggBasicAuthentication>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddFluentValidationAutoValidation(config => config.DisableDataAnnotationsValidation = false); // Sett til true for å disable annotation i DTO.
 builder.Services.AddScoped<IUserRepo, UserRepositoryDbContext>();
 builder.Services.AddScoped<IPostRepo, PostRepositoryDbContext>();
+builder.Services.AddScoped<ICommentRepo, CommentRepositoryDbContext>();
 builder.Services.AddTransient<GlobalExceptionMiddleware>();
 builder.Services.AddDbContext<StudentBloggDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), 

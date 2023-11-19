@@ -8,6 +8,6 @@ namespace StudentBloggAPI.Services.Interfaces
         Task<PostDTO?> AddPostAsync(PostDTO postDTO);
         Task<PostDTO?> UpdatePostAsync(int Id, PostDTO postDTO);
         Task<PostDTO?> DeletePostAsync(int Id);
-        Task<PostDTO?> GetPostsByIdAsync(int Id);
+        Task<PostDTO?> GetPostByIdAsync(int Id);
     }
 }

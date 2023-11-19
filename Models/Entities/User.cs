@@ -12,9 +12,11 @@ public class User
     public string UserName { get; set; } = string.Empty;
 
     [Required]
+    [MinLength(2), MaxLength(20)]
     public string FirstName { get; set; } = string.Empty;
 
     [Required]
+    [MinLength(2), MaxLength(20)]
     public string LastName { get; set; } = string.Empty;
 
     [EmailAddress]

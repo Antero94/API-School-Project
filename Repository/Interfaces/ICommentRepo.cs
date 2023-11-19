@@ -8,5 +8,5 @@ public interface ICommentRepo
     Task<Comment?> UpdateCommentAsync(int Id, Comment comment);
     Task<Comment?> DeleteCommentByIdAsync(int Id);
     Task<Comment?> GetCommentByIdAsync(int Id);
-    Task<ICollection<Comment>> GetCommentsAsync();
+    Task<ICollection<Comment>> GetCommentsAsync(int pageNr, int pageSize);
 }

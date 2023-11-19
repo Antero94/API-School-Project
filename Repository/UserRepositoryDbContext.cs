@@ -53,18 +53,23 @@ public class UserRepositoryDbContext : IUserRepo
 
     public async Task<User?> UpdateUserAsync(int Id, User user)
     {
-        var userToUpdate = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == Id);
+        await _dbContext.Users.Where(u => u.Id == Id)
+            .ExecuteUpdateAsync(setters => setters
+            .SetProperty(x => x.Id, user.Id)
+            .SetProperty(x => x.UserName, user.UserName)
+            .SetProperty(x => x.FirstName, user.FirstName)
+            .SetProperty(x => x.LastName, user.LastName)
+            .SetProperty(x => x.Email, user.Email)
+            .SetProperty(x => x.Updated, DateTime.Now));
+        await _dbContext.SaveChangesAsync();
 
-        if (userToUpdate != null)
-        {
-            var entity = _dbContext.Users.Update(userToUpdate);
-            await _dbContext.SaveChangesAsync();
-            return entity.Entity;
-        }
-        return null;
+        var userToUpdate = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == Id);
+        if (userToUpdate == null) return null;
+
+        return userToUpdate;
     }
 
-    public async Task<User?> GetByUserNameAsync(string userName)
+    public async Task<User?> GetByUsernameAsync(string userName)
     {
         var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.UserName == userName);
         
