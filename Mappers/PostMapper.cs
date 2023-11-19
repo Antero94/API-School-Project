@@ -16,10 +16,10 @@ public class PostMapper : IMapper<Post, PostDTO>
         var dtNow = DateTime.Now;
         return new Post()
         {
-            Id = dto.PostID,
-            UserId = dto.UserID,
+            Id = dto.Id,
+            UserId = dto.UserId,
             Title = dto.Title,
-            Content = dto.PostContent,
+            Content = dto.Content,
             Created = dtNow,
             Updated = dtNow
         };

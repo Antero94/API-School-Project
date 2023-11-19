@@ -3,9 +3,9 @@ using StudentBloggAPI.Models.DTOs;
 
 namespace StudentBloggAPI.Validators;
 
-public class UserRegistrationDTOValidator : AbstractValidator<UserRegistrationDTO>
+public class UserDTOValidator : AbstractValidator<UserDTO>
 {
-    public UserRegistrationDTOValidator()
+    public UserDTOValidator()
     {
         RuleFor(x => x.UserName)
             .NotEmpty().WithMessage("Username må være med!")
@@ -29,13 +29,5 @@ public class UserRegistrationDTOValidator : AbstractValidator<UserRegistrationDT
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("E-mail må være med!")
             .EmailAddress().WithMessage("Må ha gyldig E-Mail");
-
-        RuleFor(x => x.Password)
-            .NotEmpty().WithMessage("Passord må være med!")
-            .MinimumLength(8).WithMessage("Passord må være minst 8 tegn!")
-            .MaximumLength(50).WithMessage("Passord kan ikke være lenger enn 50 tegn!")
-            .Matches("[0-9]").WithMessage("Må ha minst 1 tall i passordet!")
-            .Matches("[A-Z]").WithMessage("Må ha minst 1 stor bokstav i passordet!")
-            .Matches("[a-z]").WithMessage("Må ha minst 1 liten bokstav i passordet!");
     }
 }

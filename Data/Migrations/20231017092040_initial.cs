@@ -79,7 +79,7 @@ namespace StudentBloggAPI.Data.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     Content = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DateCommented = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Updated = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>

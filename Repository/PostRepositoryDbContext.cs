@@ -12,14 +12,15 @@ public class PostRepositoryDbContext : IPostRepo
     {
         _dbContext = dbContext;
     }
+
     public async Task<Post?> AddPostAsync(Post post)
     {
-        var postToUpdate = await _dbContext.Posts.AddAsync(post);
+        var postToAdd = await _dbContext.Posts.AddAsync(post);
         await _dbContext.SaveChangesAsync();
 
-        if (postToUpdate != null)
+        if (postToAdd != null)
         {
-            return postToUpdate.Entity;
+            return postToAdd.Entity;
         }
         return null;
     }
@@ -27,7 +28,6 @@ public class PostRepositoryDbContext : IPostRepo
     public async Task<Post?> DeletePostByIdAsync(int Id)
     {
         var postToDelete = await _dbContext.Posts.FirstOrDefaultAsync(x => x.Id == Id);
-
         if (postToDelete != null)
         {
             var entity = _dbContext.Posts.Remove(postToDelete);
@@ -52,14 +52,18 @@ public class PostRepositoryDbContext : IPostRepo
 
     public async Task<Post?> UpdatePostAsync(int Id, Post post)
     {
-        var postToUpdate = await _dbContext.Posts.FirstOrDefaultAsync(x =>x.Id == Id);
+        await _dbContext.Posts.Where(u => u.Id == Id)
+            .ExecuteUpdateAsync(setters => setters
+            .SetProperty(x => x.Id, post.Id)
+            .SetProperty(x => x.UserId, post.UserId)
+            .SetProperty(x => x.Title, post.Title)
+            .SetProperty(x => x.Content, post.Content)
+            .SetProperty(x => x.Updated, DateTime.Now));
+        await _dbContext.SaveChangesAsync();
 
-        if (postToUpdate != null )
-        {
-            var entity = _dbContext.Posts.Update(postToUpdate);
-            await _dbContext.SaveChangesAsync();
-            return entity.Entity;
-        }
-        return null;
+        var postToUpdate = await _dbContext.Posts.FirstOrDefaultAsync(u => u.Id == Id);
+        if (postToUpdate == null) return null;
+
+        return postToUpdate;
     }
 }

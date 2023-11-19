@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using StudentBloggAPI.Models.Entities;
+﻿using StudentBloggAPI.Models.Entities;
 using StudentBloggAPI.Repository.Interfaces;
 
 namespace StudentBloggAPI.Repository.InMemoryDb;

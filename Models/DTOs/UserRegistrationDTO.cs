@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace StudentBloggAPI.Models.DTOs;
+﻿namespace StudentBloggAPI.Models.DTOs;
 
 //public record UserRegistrationDTO1(
 //    string UserName,

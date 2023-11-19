@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using StudentBloggAPI.Models.Entities;
+﻿using StudentBloggAPI.Models.Entities;
 using StudentBloggAPI.Repository.Interfaces;
 
 namespace StudentBloggAPI.Repository.InMemoryDb;
@@ -65,7 +64,7 @@ public class UserRepoInMemory : IUserRepo
         throw new NotImplementedException();
     }
 
-    public Task<User?> GetByUserNameAsync(string userName)
+    public Task<User?> GetByUsernameAsync(string userName)
     {
         throw new NotImplementedException();
     }

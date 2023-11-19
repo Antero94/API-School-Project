@@ -4,10 +4,10 @@ namespace StudentBloggAPI.Services.Interfaces
 {
     public interface ICommentService
     {
-        Task<ICollection<CommentDTO>> GetAllCommentsAsync();
-        Task<CommentDTO?> AddCommentAsync(CommentDTO commentDTO);
+        Task<ICollection<CommentDTO>> GetAllCommentsAsync(int pageNr, int pageSize);
+        Task<CommentDTO?> AddCommentAsync(int Id, CommentDTO commentDTO);
         Task<CommentDTO?> UpdateCommentAsync(int Id, CommentDTO commentDTO);
         Task<CommentDTO?> DeleteCommentAsync(int Id);
-        Task<CommentDTO?> GetCommentsByIdAsync(int Id);
+        Task<CommentDTO?> GetCommentByIdAsync(int Id);
     }
 }

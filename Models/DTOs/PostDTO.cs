@@ -1,10 +1,10 @@
 ﻿namespace StudentBloggAPI.Models.DTOs;
 
 public record PostDTO(
-    int PostID, 
-    int UserID, 
+    int Id, 
+    int UserId, 
     string Title, 
-    string PostContent, 
+    string Content, 
     DateTime Created,
     DateTime Updated);
 

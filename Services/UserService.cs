@@ -30,25 +30,23 @@ public class UserService : IUserService
         return _userMapper.MapToDTO(res!);
     }
 
-    public async Task<UserDTO?> DeleteByIdAsync(int Id)
+    public async Task<UserDTO?> DeleteUserByIdAsync(int Id)
     {
-        var user = await _userRepo.GetUserByIdAsync(Id);
-        
-        if (user == null)
+        var userToDelete = await _userRepo.GetUserByIdAsync(Id);
+        if (userToDelete == null)
         {
             return null;
         }
-        
+
         var res = await _userRepo.DeleteUserByIdAsync(Id);
-        
         if (res == null)
         {
             return null;
         }
-        return _userMapper.MapToDTO(user);
+        return _userMapper.MapToDTO(userToDelete);
     }
 
-    public async Task<UserDTO?> GetByIdAsync(int Id)
+    public async Task<UserDTO?> GetUserByIdAsync(int Id)
     {
         var user = await _userRepo.GetUserByIdAsync(Id);
         if (user == null)
@@ -59,9 +57,9 @@ public class UserService : IUserService
         return _userMapper.MapToDTO(user);
     }
 
-    public async Task<UserDTO?> GetByUserNameAsync(string userName)
+    public async Task<UserDTO?> GetByUsernameAsync(string userName)
     {
-        var user = await _userRepo.GetByUserNameAsync(userName);
+        var user = await _userRepo.GetByUsernameAsync(userName);
         if (user == null)
         {
             return null;
@@ -71,13 +69,15 @@ public class UserService : IUserService
 
     public async Task<ICollection<UserDTO>> GetPageAsync(int pageNr, int pageSize)
     {
-        var res = await _userRepo.GetPageAsync(pageNr, pageSize);
-        return res.Select(user => _userMapper.MapToDTO(user)).ToList();
+        var users = await _userRepo.GetPageAsync(pageNr, pageSize);
+        var dto = users.Select(_userMapper.MapToDTO).ToList();
+
+        return dto;
     }
 
     public async Task<int> IsUserAuthorizedAsync(string userName, string password)
     {
-        var user = await _userRepo.GetByUserNameAsync(userName);
+        var user = await _userRepo.GetByUsernameAsync(userName);
         if (user == null) return 0;
 
         if (BCrypt.Net.BCrypt.Verify(password, user.HashedPassword))
@@ -94,11 +94,11 @@ public class UserService : IUserService
         {
             return null;
         }
-        var user = _userMapper.MapToModel(userDTO);
-        user.Id = Id;
+        var userUpdated = _userMapper.MapToModel(userDTO);
+        userUpdated.Id = Id;
 
-        var res = await _userRepo.UpdateUserAsync(Id, user);
+        var res = await _userRepo.UpdateUserAsync(Id, userUpdated);
 
-        return res != null ? _userMapper.MapToDTO(user) : null;
+        return res != null ? _userMapper.MapToDTO(userUpdated) : null;
     }
 }
