@@ -9,7 +9,7 @@ direct contact with the MySQL Database.
 
 EntityFrameWork Core was used to establish the database, and Pomelo to bypass the need to write SQL syntax.
 
-The API has middleware that handles error logging via Serilog, as well as basic authentiation for a simple login system.
+The API has middleware that handles error logging via Serilog, as well as basic authentiation for a simple login system (Note: Basic authentication is not to be used in deployment as it is not secure enough.)
 
 The API uses a mapper that censors sensitive information that has been retrieved from the database, such as passwords. This is being handled by the 
 service layer which maps information to the database as "Entities" and to the user as "DTOs".
